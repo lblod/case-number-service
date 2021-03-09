@@ -16,8 +16,8 @@ services:
 To make it available to the CLIENT configure the [dispatcher](https://github.com/mu-semtech/mu-dispatcher):
 
 ```
-  get "/case-numbers/*path", _ do
-    forward conn, [], "http://case-number/generate"
+  match "/case-number-generator/*path" do
+    Proxy.forward conn, path, "http://case-number-generator/"
   end
 ```
 ### Environment variables

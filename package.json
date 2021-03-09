@@ -1,7 +1,7 @@
 {
   "name": "case-number-service",
   "version": "1.0.0",
-  "description": "Service that generates an unique case-number within the database.",
+  "description": "Service that generates unique case-number to be used within a mu.semte.ch stack.",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
