@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/lblod/case-number-service/issues"
   },
-  "homepage": "https://github.com/lblod/case-number-service#readme"
+  "homepage": "https://github.com/lblod/case-number-service#readme",
+  "dependencies": {
+    "@lblod/mu-auth-sudo": "^0.2.0",
+    "json-api-serializer": "^2.6.1"
+  }
 }
