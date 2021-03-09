@@ -1,0 +1,19 @@
+{
+  "name": "case-number-service",
+  "version": "1.0.0",
+  "description": "Service that generates an unique case-number within the database.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lblod/case-number-service.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lblod/case-number-service/issues"
+  },
+  "homepage": "https://github.com/lblod/case-number-service#readme"
+}
