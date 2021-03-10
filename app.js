@@ -1,8 +1,21 @@
 import { app, errorHandler } from 'mu';
-import { SERVICE_NAME } from './env';
-import { CaseNumberGenerator } from './lib/case-number-generator';
 
-const generator = new CaseNumberGenerator();
+import bodyParser from 'body-parser';
+
+import { SERVICE_NAME, SERVICE_URI } from './env';
+import { CaseNumberService } from './lib/case-number-service';
+
+const service = new CaseNumberService();
+
+/**
+ * Setup and API.
+ */
+
+app.use(bodyParser.json({
+  type: function(req) {
+    return /^application\/json/.test(req.get('content-type'));
+  },
+}));
 
 /**
  * Hello world (basic is alive).
@@ -21,7 +34,35 @@ app.get('/generate', async function(req, res) {
   const amount = (req.query && req.query.amount) || 1;
 
   try {
-    const numbers = await generator.generate({prefix, amount});
+    const numbers = await service.generate({prefix, amount});
+    return res.status(200).set('content-type', 'application/json').send(numbers);
+  } catch (e) {
+    const response = {
+      status: 500,
+      message: 'Something unexpected went wrong while trying to generate case-numbers.',
+    };
+    console.warn(e);
+    return res.status(response.status).set('content-type', 'application/json').send(response);
+  }
+});
+
+/**
+ * Generates and locks a set of case-numbers for a given node.
+ */
+app.post('/generate', async function(req, res) {
+
+  const node = (req.query && req.query.node) || SERVICE_URI;
+
+  const prefix = req.query && req.query.prefix;
+  const amount = (req.query && req.query.amount) || 1;
+
+  let numbers = req.body;
+
+  try {
+    if (!numbers.length) {
+      numbers = await service.generate({prefix, amount});
+    }
+    await service.lock(numbers, {node});
     return res.status(200).set('content-type', 'application/json').send(numbers);
   } catch (e) {
     const response = {
