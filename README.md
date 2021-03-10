@@ -32,6 +32,8 @@ Provided [environment variables](https://docs.docker.com/compose/environment-var
 
 ## API
 
+### Generate a set amount of random and unique case-numbers.
+
 > **GET** `/generate?prefix=FS2020&amount=5`
 
 #### URL Parameters
@@ -39,7 +41,36 @@ Provided [environment variables](https://docs.docker.com/compose/environment-var
 | PARAMETER  | DESCRIPTION                                  | DEFAULT |
 |--------|----------------------------------------------|---------|
 | `amount` | Amount of case-numbers to be generated.      | `1`     |
-| `prefix` | Custom prefix to be used in the case-number. | `''`    |
+| `prefix` | Custom prefix to be used in the case-numbers. | `''`    |
+
+#### Response
+
+```
+HTTP/1.1 
+200 OK
+X-Powered-By: Express
+content-type: application/json; charset=utf-8
+
+[
+ "FS2020B338C4",
+ "FS2020794ADD",
+ "FS2020AA255F",
+ "FS2020E8CBA0",
+ "FS202083670D"
+]
+```
+
+### Generate and LOCK a set of case-numbers for the provided node.
+
+> **POST** `/generate?node=http://mu.semte.ch/subject&prefix=FS2020&amount=5`
+
+#### URL Parameters
+
+| PARAMETER  | DESCRIPTION                                  | DEFAULT |
+|--------|----------------------------------------------|---------|
+| `node` | Node on which the case-numbers should be locked      | URI derived from `SERVICE_NAME`     |
+| `amount` | Amount of case-numbers to be generated.      | `1`     |
+| `prefix` | Custom prefix to be used in the case-numbers. | `''`    |
 
 #### Response
 
