@@ -51,19 +51,17 @@ app.get('/generate', async function(req, res) {
  */
 app.post('/generate', async function(req, res) {
 
+  /**
+   * TODO: for now the default node doesn't work as it is not saved as a public class.
+   */
   const node = (req.query && req.query.node) || SERVICE_URI;
-
   const prefix = req.query && req.query.prefix;
   const amount = (req.query && req.query.amount) || 1;
 
-  let numbers = req.body;
-
   try {
-    if (!numbers.length) {
-      numbers = await service.generate({prefix, amount});
-    }
-    await service.lock(numbers, {node});
-    return res.status(200).set('content-type', 'application/json').send(numbers);
+    const numbers = await service.generate({prefix, amount});
+    const locked = await service.lock(numbers, {node});
+    return res.status(200).set('content-type', 'application/json').send(locked);
   } catch (e) {
     const response = {
       status: 500,
