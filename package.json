@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/lblod/case-number-service#readme",
   "dependencies": {
-    "@lblod/mu-auth-sudo": "^0.2.0",
+    "@lblod/mu-auth-sudo": "^0.6.1",
     "json-api-serializer": "^2.6.1"
   }
 }
